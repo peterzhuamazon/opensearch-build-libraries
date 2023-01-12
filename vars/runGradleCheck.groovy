@@ -7,7 +7,7 @@
  * compatible open source license.
  */
 void call(Map args = [:]) {
-    def lib = library(identifier: 'jenkins@main', retriever: legacySCM(scm))
+    def lib = library(identifier: 'jenkins@1.6.0', retriever: legacySCM(scm))
     def git_repo_url = args.gitRepoUrl ?: 'null'
     def git_reference = args.gitReference ?: 'null'
 
@@ -71,12 +71,18 @@ void call(Map args = [:]) {
 
                 echo "Start gradlecheck"
                 GRADLE_CHECK_STATUS=0
-                ./gradlew clean && ./gradlew check -Dtests.coverage=true --no-daemon --no-scan || GRADLE_CHECK_STATUS=1
+                #./gradlew clean && ./gradlew check -Dtests.coverage=true --no-daemon --no-scan || GRADLE_CHECK_STATUS=1
 
-                if [ "\$GRADLE_CHECK_STATUS" != 0 ]; then
-                    echo Gradle Check Failed!
-                    exit 1
-                fi
+                ./gradlew yamlRestTest --max-workers 8 --no-daemon
+                ./gradlew :server:internalClusterTest --max-workers 8 --no-daemon
+                ./gradlew internalClusterTest -x :server:internalClusterTest --max-workers 8 --no-daemon
+                ./gradlew :server:test -x :server:internalClusterTest --max-workers 8 --no-daemon
+                ./gradlew check -x :server:test -x internalClusterTest -x yamlRestTest --max-workers 8 --no-daemon
+
+                #if [ "\$GRADLE_CHECK_STATUS" != 0 ]; then
+                #    echo Gradle Check Failed!
+                #    exit 1
+                #fi
 
             """
         }
