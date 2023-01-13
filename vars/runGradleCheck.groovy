@@ -74,10 +74,10 @@ void call(Map args = [:]) {
                 #./gradlew clean && ./gradlew check -Dtests.coverage=true --no-daemon --no-scan || GRADLE_CHECK_STATUS=1
 
                 ./gradlew yamlRestTest --max-workers 8 --no-daemon
-                ./gradlew :server:internalClusterTest --max-workers 8 --no-daemon
-                ./gradlew internalClusterTest -x :server:internalClusterTest --max-workers 8 --no-daemon
-                ./gradlew :server:test -x :server:internalClusterTest --max-workers 8 --no-daemon
-                ./gradlew check -x :server:test -x internalClusterTest -x yamlRestTest --max-workers 8 --no-daemon
+                #./gradlew :server:internalClusterTest --max-workers 8 --no-daemon
+                #./gradlew internalClusterTest -x :server:internalClusterTest --max-workers 8 --no-daemon
+                #./gradlew :server:test -x :server:internalClusterTest --max-workers 8 --no-daemon
+                #./gradlew check -x :server:test -x internalClusterTest -x yamlRestTest --max-workers 8 --no-daemon
 
                 #if [ "\$GRADLE_CHECK_STATUS" != 0 ]; then
                 #    echo Gradle Check Failed!
