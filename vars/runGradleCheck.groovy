@@ -79,7 +79,9 @@ void call(Map args = [:]) {
 
                 #./gradlew :server:test -x :server:internalClusterTest --max-workers 8 --no-daemon
 
-                ./gradlew internalClusterTest --max-workers 8 --no-daemon
+                #./gradlew internalClusterTest --max-workers 8 --no-daemon
+
+                ./gradlew check --max-workers 8 --no-daemon -Dtests.coverage=true
 
                 #./gradlew :server:internalClusterTest --max-workers 8 --no-daemon
                 #./gradlew internalClusterTest -x :server:internalClusterTest --max-workers 8 --no-daemon
