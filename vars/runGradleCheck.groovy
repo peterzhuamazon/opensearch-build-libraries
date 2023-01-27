@@ -71,7 +71,7 @@ void call(Map args = [:]) {
 
                 echo "Start gradlecheck"
                 GRADLE_CHECK_STATUS=0
-                #./gradlew clean && ./gradlew check -Dtests.coverage=true --no-daemon --no-scan || GRADLE_CHECK_STATUS=1
+                ./gradlew clean && ./gradlew check -Dtests.coverage=true --no-daemon --no-scan || GRADLE_CHECK_STATUS=1
 
                 #./gradlew yamlRestTest --max-workers 8 --no-daemon
 
@@ -81,7 +81,7 @@ void call(Map args = [:]) {
 
                 #./gradlew internalClusterTest --max-workers 8 --no-daemon
 
-                ./gradlew check --max-workers 8 --no-daemon -Dtests.coverage=true
+                #./gradlew check --max-workers 8 --no-daemon -Dtests.coverage=true
 
                 #./gradlew :server:internalClusterTest --max-workers 8 --no-daemon
                 #./gradlew internalClusterTest -x :server:internalClusterTest --max-workers 8 --no-daemon
