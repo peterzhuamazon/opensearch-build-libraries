@@ -27,7 +27,7 @@ void call(Map args = [:]) {
     String component = args.componentName
     echo "Component: ${component}"
 
-    Boolean switchUser = args.switchUserNonRoot
+    String switchUser = args.switchUserNonRoot
     echo "Switch User 1000: ${switchUser} " + args.switchUserNonRoot
 
     switchCommand = switchUser ? 'su - `id -un 1000` -c' : ''
