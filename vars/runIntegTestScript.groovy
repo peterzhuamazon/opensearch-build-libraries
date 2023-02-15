@@ -33,9 +33,11 @@ void call(Map args = [:]) {
     switchCommandStart = switchUser.equals('true') ? 'su - `id -un 1000` -c "' : ''
     switchCommandEnd = switchUser.equals('true') ? '"' : ''
 
+    sh("pwd")
     String testCommand = 
     [
         switchCommandStart,
+        'pwd &&'
         './test.sh',
         'integ-test',
         "${args.testManifest}",
