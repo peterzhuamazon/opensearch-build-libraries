@@ -12,6 +12,8 @@ void call(Map args = [:]) {
     String jobName = args.jobName ?: 'distribution-build-opensearch'
     def buildManifest = lib.jenkins.BuildManifest.new(readYaml(file: args.buildManifest))
 
+    echo "Start integTest123"
+
     String buildId = buildManifest.build.id
     echo "Build Id: ${buildId}"
 
