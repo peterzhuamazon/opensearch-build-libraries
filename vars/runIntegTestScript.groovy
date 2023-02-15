@@ -28,19 +28,21 @@ void call(Map args = [:]) {
     echo "Component: ${component}"
 
     String switchUser = args.switchUserNonRoot
-    echo "Switch User 1000: ${switchUser} " + args.switchUserNonRoot
+    echo "Switch User to Non-Root (uid=1000): ${switchUser} "
 
-    switchCommand = switchUser.equals('true') ? 'su - `id -un 1000` -c' : ''
+    switchCommandStart = switchUser.equals('true') ? 'su - `id -un 1000` -c "' : ''
+    switchCommandEnd = switchUser.equals('true') ? '"' : ''
 
     String testCommand = 
     [
-        switchCommand,
+        switchCommandStart,
         './test.sh',
         'integ-test',
         "${args.testManifest}",
         "--component ${component}",
         "--test-run-id ${env.BUILD_NUMBER}",
         "--paths ${paths}",
+        switchCommandEnd,
     ].join(' ')
     println("testcommand: " + testCommand)
 }
