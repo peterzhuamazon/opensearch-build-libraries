@@ -29,7 +29,7 @@ void call(Map args = [:]) {
     echo "Component: ${component}"
 
     Boolean switchUser = args.switchUser1000
-    echo "Switch User 1000: ${switchUser1000}"
+    echo "Switch User 1000: ${switchUser}"
 
     switchCommand = switchUser ? 'su - `id -un 1000` -c' : ''
 
