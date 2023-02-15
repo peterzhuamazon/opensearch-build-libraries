@@ -37,7 +37,7 @@ void call(Map args = [:]) {
     String testCommand = 
     [
         switchCommandStart,
-        'pwd &&'
+        'pwd &&',
         './test.sh',
         'integ-test',
         "${args.testManifest}",
