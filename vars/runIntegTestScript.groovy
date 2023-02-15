@@ -7,8 +7,10 @@
  * compatible open source license.
  */
 void call(Map args = [:]) {
+    println("hahaha")
     lib = library(identifier: 'jenkins@main', retriever: legacySCM(scm))
 
+    echo "Start integTest123123"
     String jobName = args.jobName ?: 'distribution-build-opensearch'
     def buildManifest = lib.jenkins.BuildManifest.new(readYaml(file: args.buildManifest))
 

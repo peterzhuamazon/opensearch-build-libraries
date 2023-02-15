@@ -25,5 +25,4 @@ void call(Map args = [:]) {
                 s3Download(file: args.localPath, bucket: args.bucketName, path: args.downloadPath, force: "${forceDownload}")
             }
     }
-    println("I complete download")
 }
