@@ -31,7 +31,7 @@ void call(Map args = [:]) {
     Boolean switchUser = args.switchUser1000
     echo "Switch User 1000: ${switchUser1000}"
 
-    switchCommand = switchUser : 'su - `id -un 1000` -c' ? ''
+    switchCommand = switchUser ? 'su - `id -un 1000` -c' : ''
 
     String testCommand = 
     [
