@@ -30,7 +30,7 @@ void call(Map args = [:]) {
     String switchUser = args.switchUserNonRoot
     echo "Switch User 1000: ${switchUser} " + args.switchUserNonRoot
 
-    switchCommand = switchUser ? 'su - `id -un 1000` -c' : ''
+    switchCommand = switchUser.equals('true') ? 'su - `id -un 1000` -c' : ''
 
     String testCommand = 
     [
