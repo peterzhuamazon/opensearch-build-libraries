@@ -44,7 +44,9 @@ void call(Map args = [:]) {
         "--paths ${paths}",
         switchCommandEnd,
     ].join(' ')
-    println("testcommand: " + testCommand)
+
+    echo "Run command: " + testCommand
+    sh(restCommand)
 }
 
 String generatePaths(buildManifest, artifactRootUrl, localPath) {
