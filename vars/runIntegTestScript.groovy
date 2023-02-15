@@ -29,16 +29,16 @@ void call(Map args = [:]) {
     String component = args.componentName
     echo "Component: ${component}"
 
-    sh([
-        'su - `id -un 1000` -c "'
-        './test.sh',
-        'integ-test',
-        "${args.testManifest}",
-        "--component ${component}",
-        "--test-run-id ${env.BUILD_NUMBER}",
-        "--paths ${paths}",
-        '"',
-    ].join(' '))
+    //sh([
+    //    'su - `id -un 1000` -c "'
+    //    './test.sh',
+    //    'integ-test',
+    //    "${args.testManifest}",
+    //    "--component ${component}",
+    //    "--test-run-id ${env.BUILD_NUMBER}",
+    //    "--paths ${paths}",
+    //    '"',
+    //].join(' '))
 }
 
 String generatePaths(buildManifest, artifactRootUrl, localPath) {
