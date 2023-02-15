@@ -30,10 +30,11 @@ void call(Map args = [:]) {
     String switchUser = args.switchUserNonRoot
     echo "Switch User to Non-Root (uid=1000): ${switchUser} "
 
-    switchCommandStart = switchUser.equals('true') ? 'su - `id -un 1000` -c "' : ''
-    switchCommandEnd = switchUser.equals('true') ? '"' : ''
+    String currentDir = new File(".").getAbsolutePath()
+    String switchCommandStart = switchUser.equals('true') ? "su - `id -un 1000` -c \" cd ${currentDir} &&" : ''
+    String switchCommandEnd = switchUser.equals('true') ? '"' : ''
 
-    sh("pwd")
+    
     String testCommand = 
     [
         switchCommandStart,
