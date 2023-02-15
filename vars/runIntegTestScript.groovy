@@ -9,11 +9,10 @@
 void call(Map args = [:]) {
     lib = library(identifier: 'jenkins@main', retriever: legacySCM(scm))
 
-    echo "Start integTest123123"
     String jobName = args.jobName ?: 'distribution-build-opensearch'
     def buildManifest = lib.jenkins.BuildManifest.new(readYaml(file: args.buildManifest))
 
-    echo "Start integTest123"
+    echo "Start integTest for distribution type: " + buildManifest.getDistribution()
 
     String buildId = buildManifest.build.id
     echo "Build Id: ${buildId}"
