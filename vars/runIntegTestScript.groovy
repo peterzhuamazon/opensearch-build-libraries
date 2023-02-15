@@ -7,7 +7,6 @@
  * compatible open source license.
  */
 void call(Map args = [:]) {
-    println("hahaha")
     lib = library(identifier: 'jenkins@main', retriever: legacySCM(scm))
 
     echo "Start integTest123123"
@@ -29,16 +28,22 @@ void call(Map args = [:]) {
     String component = args.componentName
     echo "Component: ${component}"
 
-    sh([
-        'su - `id -un 1000` -c "whoami && id"'
-        //'./test.sh',
-        //'integ-test',
-        //"${args.testManifest}",
-        //"--component ${component}",
-        //"--test-run-id ${env.BUILD_NUMBER}",
-        //"--paths ${paths}",
-        //'"',
-    ].join(' '))
+    Boolean switchUser = args.switchUser1000
+    echo "Switch User 1000: ${switchUser1000}"
+
+    switchCommand = switchUser : 'su - `id -un 1000` -c' ? ''
+
+    String testCommand = 
+    [
+        switchCommand,
+        './test.sh',
+        'integ-test',
+        "${args.testManifest}",
+        "--component ${component}",
+        "--test-run-id ${env.BUILD_NUMBER}",
+        "--paths ${paths}",
+    ].join(' ')
+    println("testcommand: " + testCommand)
 }
 
 String generatePaths(buildManifest, artifactRootUrl, localPath) {
