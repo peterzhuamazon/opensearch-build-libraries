@@ -46,7 +46,7 @@ void call(Map args = [:]) {
     ].join(' ')
 
     echo "Run command: " + testCommand
-    sh(restCommand)
+    sh(testCommand)
 }
 
 String generatePaths(buildManifest, artifactRootUrl, localPath) {
