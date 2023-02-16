@@ -14,6 +14,10 @@ void call(Map args = [:]) {
 
     echo "Start integTest for distribution type: " + buildManifest.getDistribution()
 
+    javaVersion = (jobName.equals('distribution-build-opensearch') ? detectTestDockerAgent().javaVersion : 'None'
+    String javaHomeCommand = (jobName.equals('distribution-build-opensearch') ? "env JAVA_HOME=/opt/java/${javaVersion}" : ''
+    echo "Possible Java Home: ${javaHome}"
+
     String buildId = buildManifest.build.id
     echo "Build Id: ${buildId}"
 
@@ -37,11 +41,10 @@ void call(Map args = [:]) {
     String switchCommandStart = switchUser.equals('true') ? "su - `id -un 1000` -c \" cd ${currentDir} &&" : ''
     String switchCommandEnd = switchUser.equals('true') ? '"' : ''
 
-    
     String testCommand = 
     [
         switchCommandStart,
-        'pwd &&',
+        javaHomeCommand,
         './test.sh',
         'integ-test',
         "${args.testManifest}",
