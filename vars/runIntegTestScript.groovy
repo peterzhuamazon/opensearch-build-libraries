@@ -16,7 +16,7 @@ void call(Map args = [:]) {
 
     javaVersion = (jobName.equals('distribution-build-opensearch')) ? detectTestDockerAgent().javaVersion : 'None'
     String javaHomeCommand = (jobName.equals('distribution-build-opensearch')) ? "env JAVA_HOME=/opt/java/${javaVersion}" : ''
-    echo "Possible Java Home: ${javaHome}"
+    echo "Possible Java Home: ${javaHomeCommand}"
 
     String buildId = buildManifest.build.id
     echo "Build Id: ${buildId}"
