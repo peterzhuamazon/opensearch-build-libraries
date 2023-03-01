@@ -9,13 +9,20 @@
 void call(Map args = [:]) {
     lib = library(identifier: 'jenkins@main', retriever: legacySCM(scm))
 
-    String jobName = args.jobName ?: 'distribution-build-opensearch'
     def buildManifest = lib.jenkins.BuildManifest.new(readYaml(file: args.buildManifest))
-
     echo "Start integTest for distribution type: " + buildManifest.getDistribution()
 
-    javaVersion = (jobName.equals('distribution-build-opensearch')) ? detectTestDockerAgent().javaVersion : 'None'
-    String javaHomeCommand = (jobName.equals('distribution-build-opensearch')) ? "env JAVA_HOME=/opt/java/${javaVersion}" : ''
+    String fileName = buildManifest.Build.getFilename()
+    echo "Product: ${fileName}"
+
+    String jobName = args.jobName ?: 'None'
+    if (jobName.equals('None')) {
+        echo "Please provide jobName of the distribution build workflow."
+        System.exit(1)
+    }
+
+    javaVersion = (jobName.equals('distribution-build-opensearch')) ? detectTestDockerAgent().javaVersion : ''
+    String javaHomeCommand = (jobName.equals('distribution-build-opensearch') && ! javaVersion.equals('')) ? "env JAVA_HOME=/opt/java/${javaVersion}" : ''
     echo "Possible Java Home: ${javaHomeCommand}"
 
     String buildId = buildManifest.build.id
@@ -38,6 +45,7 @@ void call(Map args = [:]) {
         script: 'pwd',
         returnStdout: true
     ).trim()
+    // Jenkins docker runner is for the assignment should have user 1000 with corresponding sudo permissions
     String switchCommandStart = switchUser.equals('true') ? "su - `id -un 1000` -c \" cd ${currentDir} &&" : ''
     String switchCommandEnd = switchUser.equals('true') ? '"' : ''
 
