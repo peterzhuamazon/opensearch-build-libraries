@@ -12,9 +12,6 @@ void call(Map args = [:]) {
     def buildManifest = lib.jenkins.BuildManifest.new(readYaml(file: args.buildManifest))
     echo "Start integTest for distribution type: " + buildManifest.getDistribution()
 
-    String fileName = buildManifest.Build.getFilename()
-    echo "Product: ${fileName}"
-
     String jobName = args.jobName ?: 'None'
     if (jobName.equals('None')) {
         echo "Please provide jobName of the distribution build workflow."
