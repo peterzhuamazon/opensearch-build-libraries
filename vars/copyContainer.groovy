@@ -26,6 +26,7 @@ void call(Map args = [:]) {
     destination_image = args.destinationImage
     destination_image_no_tag = destination_image.split(':')[0]
     destination_registry = args.destinationRegistry
+    println("OTEHRS: " + source_image + source_registry + destination_image + destination_registry)
 
     if (args.destinationRegistry == 'opensearchstaging' || args.destinationRegistry == 'opensearchproject') {
         def dockerJenkinsCredential = args.destinationRegistry == 'opensearchproject' ? "jenkins-production-dockerhub-credential" : "jenkins-staging-dockerhub-credential"
