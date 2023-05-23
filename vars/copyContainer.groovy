@@ -49,6 +49,7 @@ void call(Map args = [:]) {
     }
 
     if(args.destinationRegistry == 'public.ecr.aws/opensearchstaging') {
+        println("hello!!!")
         sh("set +x && aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${args.destinationRegistry}")
         craneCopy()
     }
