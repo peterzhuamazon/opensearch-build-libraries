@@ -19,6 +19,7 @@
 void call(Map args = [:]) {
 
     all_tags = args.allTags ?: false
+    println("TEST ALL TAGS: " + all_tags)
     source_image = args.sourceImage
     source_image_no_tag = source_image.split(':')[0]
     source_registry = args.sourceRegistry
