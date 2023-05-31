@@ -7,7 +7,7 @@
  * compatible open source license.
  */
 void call(Map args = [:]) {
-    sh(([
+    def build_cmd = ([
         './build.sh',
         args.inputManifest ?: "manifests/${INPUT_MANIFEST}",
         args.distribution ? "-d ${args.distribution}" : null,
@@ -16,5 +16,9 @@ void call(Map args = [:]) {
         args.architecture ? "-a ${args.architecture}" : null,
         args.snapshot ? '--snapshot' : null,
         args.lock ? '--lock' : null
-    ] - null).join(' '))
+    ] - null).join(' ')
+
+    sh """#!/bin/bash
+        eval $build_cmd
+    """
 }
