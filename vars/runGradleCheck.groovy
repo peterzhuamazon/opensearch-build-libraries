@@ -59,7 +59,7 @@ void call(Map args = [:]) {
                     echo "Check existing dockercontainer"
                     docker ps -a
                     docker stop `docker ps -qa` > /dev/null 2>&1 || echo
-                    docker rm --force `docker ps -qa` > /dev/null 2>&1 || echo
+                    docker rm --force `docker ps -qa | grep -v "gradle-check-jenkins"` > /dev/null 2>&1 || echo
                     echo "Stop existing dockercontainer"
                     docker ps -a
 
