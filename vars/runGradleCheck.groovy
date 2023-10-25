@@ -29,6 +29,10 @@ void call(Map args = [:]) {
                 set -e
                 set +x
 
+                if [ -f "/etc/profile.d/java_home.sh" ]; then
+                    . /etc/profile.d/java_home.sh
+                fi
+
                 echo "Git clone: ${git_repo_url} with ref: ${git_reference}"
                 rm -rf search
                 git clone ${git_repo_url} search
