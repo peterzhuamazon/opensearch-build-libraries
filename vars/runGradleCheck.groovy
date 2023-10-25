@@ -58,7 +58,8 @@ void call(Map args = [:]) {
                 if command -v docker > /dev/null; then
                     echo "Check existing dockercontainer"
                     docker ps -a
-                    docker_rm_list=`docker ps -qa | grep -v "gradle-check-jenkins-$BUILD_NUMBER"`
+                    docker_gradlecheck_id=`docker ps -a --filter name=gradle-check-jenkins-$BUILD_NUMBER`
+                    docker_rm_list=`docker ps -qa | grep -v \$docker_gradlecheck_id`
                     echo \$docker_rm_list
                     docker stop \$docker_rm_list > /dev/null 2>&1 || echo
                     docker rm --force \$docker_rm_list > /dev/null 2>&1 || echo
