@@ -73,7 +73,7 @@ void call(Map args = [:]) {
 
                 if [ `whoami` = "root" ]; then
                     chown -R 1000:1000 `pwd`
-                    whoami && su `whoami && id -un 1000` -c "./gradlew clean && ./gradlew check -Dtests.coverage=true --no-daemon --no-scan" || GRADLE_CHECK_STATUS=1
+                    whoami && su `id -un 1000` -c "whoami && env | grep JAVA | grep HOME && ./gradlew clean && ./gradlew check -Dtests.coverage=true --no-daemon --no-scan" || GRADLE_CHECK_STATUS=1
                 else
                     ./gradlew clean && ./gradlew check -Dtests.coverage=true --no-daemon --no-scan || GRADLE_CHECK_STATUS=1
                 fi
