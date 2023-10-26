@@ -72,7 +72,8 @@ void call(Map args = [:]) {
                 GRADLE_CHECK_STATUS=0
 
                 if [ `whoami` = "root" ]; then
-                    whoami && su `id -un 1000` -c "./gradlew clean && ./gradlew check -Dtests.coverage=true --no-daemon --no-scan" || GRADLE_CHECK_STATUS=1
+                    chown -R 1000:1000 `pwd`
+                    whoami && su `whoami && id -un 1000` -c "./gradlew clean && ./gradlew check -Dtests.coverage=true --no-daemon --no-scan" || GRADLE_CHECK_STATUS=1
                 else
                     ./gradlew clean && ./gradlew check -Dtests.coverage=true --no-daemon --no-scan || GRADLE_CHECK_STATUS=1
                 fi
