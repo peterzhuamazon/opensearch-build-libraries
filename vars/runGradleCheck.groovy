@@ -56,7 +56,7 @@ void call(Map args = [:]) {
                 rm -rf ~/.gradle
 
                 if command -v docker > /dev/null; then
-                    docker ps
+                    docker --version
 
                     echo "Check docker-compose version"
                     docker-compose version
@@ -70,7 +70,12 @@ void call(Map args = [:]) {
 
                 echo "Start gradlecheck"
                 GRADLE_CHECK_STATUS=0
-                ./gradlew clean && ./gradlew check -Dtests.coverage=true --no-daemon --no-scan || GRADLE_CHECK_STATUS=1
+
+                if [ `whoami` = "root" ]; then
+                    whoami && su `id -un 1000` -c "./gradlew clean && ./gradlew check -Dtests.coverage=true --no-daemon --no-scan" || GRADLE_CHECK_STATUS=1
+                else
+                    ./gradlew clean && ./gradlew check -Dtests.coverage=true --no-daemon --no-scan || GRADLE_CHECK_STATUS=1
+                fi
 
                 if [ "\$GRADLE_CHECK_STATUS" != 0 ]; then
                     echo Gradle Check Failed!
