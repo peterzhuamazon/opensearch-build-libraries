@@ -104,4 +104,8 @@ class InputManifest {
         return this.components.get(name).repository
     }
 
+    public String getRef(String name) {
+        return this.components.get(name).ref
+    }
+
 }
